@@ -21,10 +21,10 @@ const router = createBrowserRouter([
 ]);
 
 // get mode from exposed Vite env.MODE
-const mode: ENV = import.meta.env.MODE as ENV;
+export const mode: ENV = import.meta.env.MODE as ENV;
 
 // type check for environment url
-const url: ENV_URL = {
+export const url: ENV_URL = {
   [ENV.dev]: "localhost:3000"
 }
 

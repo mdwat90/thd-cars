@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { Link } from "react-router-dom";
-import { Car, CarData } from '../types';
+import { Button } from '@mui/material';
+import { Typography } from '@mui/material';
+import CustomTable from '../components/Table';
+import { CarData } from '../types';
+import BasicModal from '../components/Modal';
 
 
 export const Home = () => {
-    const { isLoading, error, data } = useQuery<CarData>('/cars');
+    const { isLoading, error, data, refetch } = useQuery<CarData>('/cars');
+    const [ open, setOpen ] = useState<boolean>(false);
+
+    const handleModal = () => {
+      setOpen(!open)
+    }
 
     if (isLoading) return <div>Loading...</div>
   
@@ -13,13 +21,14 @@ export const Home = () => {
 
     return (
       <div>
-        <h1>All Car Data</h1>
-        <div>{data && Object.values(data).map((car: Car) => 
-          <div key={car.id}>
-            <Link to={`car-info/${car.id}`}>{car.make} {car.model}</Link>
+        <div style={{display: 'flex',  justifyContent: 'space-between', alignItems: 'center'}}>
+          <Typography variant='h2'>All Car Data</Typography>
+          <div>
+            <Button variant="contained" onClick={handleModal}>ADD CAR</Button>
           </div>
-        )}
         </div>
+        <CustomTable data={data ? Object.values(data) : null}/>
+        <BasicModal open={open} setOpen={setOpen} refetchData={refetch} />
       </div>
     )
   }

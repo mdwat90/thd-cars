@@ -7,7 +7,8 @@ export type Car = {
 	category: string,
 	mileage: number,
 	price: number,
-	id: any
+	date: Date,
+	id?: string,
 }
 
 export interface CarData {
