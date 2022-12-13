@@ -15,7 +15,7 @@ interface Column {
   label: string;
   minWidth?: number;
   align?: 'right' | 'left';
-  format?: (value: number) => string;
+  format?: (value?: number | string) => string;
 }
 
 const columns: readonly Column[] = [
@@ -26,14 +26,14 @@ const columns: readonly Column[] = [
     label: 'Package',
     minWidth: 170,
     align: 'right',
-    format: (value: number) => value.toLocaleString('en-US'),
+    format: (value?: number | string) => String(value),
   },
   {
     id: 'color',
     label: 'Color',
     minWidth: 170,
     align: 'right',
-    format: (value: number) => value.toLocaleString('en-US'),
+    format: (value?: number | string) => String(value),
   },
   {
     id: 'year',
@@ -49,16 +49,16 @@ const columns: readonly Column[] = [
   },
   {
     id: 'mileage',
-    label: 'Mileage',
+    label: 'Mileage (mi)',
     minWidth: 170,
     align: 'right',
   },
   {
     id: 'price',
-    label: 'Price',
+    label: 'Price (cents)',
     minWidth: 170,
     align: 'right',
-    format: (value: number) => String(value * 100)
+    format: (value?: number | string) => String(Number(value) * 100)
   },
   {
     id: 'id',
@@ -120,7 +120,7 @@ export default function CustomTable({data}: CustomTableProps) {
                         const value = row[column.id];
                         return (
                             <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === 'number'
+                            {column.format
                                 ? column.format(value)
                                 : returnCellValue(value)}
                             </TableCell>
