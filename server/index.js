@@ -1,5 +1,6 @@
 var express = require("express");
 var cors = require("cors");
+const morgan = require("morgan");
 var app = express();
 const {
   getAllCarData,
@@ -11,6 +12,7 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan("common"));
 
 app.get("/api/v1/cars", function (req, res) {
   getAllCarData(req, res);
