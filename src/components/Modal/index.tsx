@@ -12,14 +12,15 @@ interface BasicModalProps {
   setOpen: (val: boolean) => void,
   setOpenSb: (val: boolean) => void,
   setSbMessage: (val: string) => void,
+  setSeverity: (val: "error" | "warning" | "info" | "success") => void,
   refetchData: () => void
 }
 
-export default function BasicModal({open, setOpen, setOpenSb, setSbMessage, refetchData}: BasicModalProps) {
+export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSbMessage, refetchData}: BasicModalProps) {
   const { handleSubmit, control, reset, formState: { errors } } = useForm();
   const handleClose = () => {
     reset();
-    setOpen(false)
+    setOpen(false);
   };
 
   const mutation = useMutation((newCarData: Car) => {
@@ -36,15 +37,20 @@ export default function BasicModal({open, setOpen, setOpenSb, setSbMessage, refe
       const { message } =  await data.json();
       refetchData();
       setSbMessage(message);
+      setSeverity('success');
       setOpenSb(true);
     },
-    onError: (err) => setSbMessage(err as string)
+    onError: (err) =>  {
+      setSbMessage(err as string);
+      setSeverity('error');
+      setOpenSb(true);
+    },
   })
 
   const onSubmit = (data?: FieldValues, e?:  React.BaseSyntheticEvent ) => {
     if (e) e.preventDefault();
     mutation.mutate(data as Car);
-    setOpen(false);
+    handleClose();
   }
 
   return (

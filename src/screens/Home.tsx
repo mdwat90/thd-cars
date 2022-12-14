@@ -13,6 +13,7 @@ export const Home = () => {
     const [ openSb, setOpenSb ] = useState<boolean>(false);
     const [ open, setOpen ] = useState<boolean>(false);
     const [sbMessage, setSbMessage] = useState<string | null>(null);
+    const [severity, setSeverity] = useState<"error" | "warning" | "info" | "success">('success');
 
     const handleModal = () => {
       setOpen(!open)
@@ -32,14 +33,14 @@ export const Home = () => {
 
     return (
       <FlexRow justifyContent='center'>
-        <CustomSnackbar open={openSb} vertical='top' horizontal='center' message={sbMessage} setOpen={setOpenSb} />
+        <CustomSnackbar open={openSb} vertical='top' horizontal='center' message={sbMessage} severity={severity} setOpen={setOpenSb} />
         <HomeWrapper>
           <FlexRow justifyContent='space-between' alignItems='center'>
             <Typography variant='h4'>All Car Data</Typography>
             <StyledButton variant="contained" onClick={handleModal}>ADD CAR</StyledButton>
           </FlexRow>
           <CustomTable data={data ? Object.values(data) : null}/>
-          <BasicModal open={open} setOpen={setOpen} setOpenSb={setOpenSb} setSbMessage={setSbMessage} refetchData={refetch} />
+          <BasicModal open={open} setOpen={setOpen} setOpenSb={setOpenSb} setSeverity={setSeverity} setSbMessage={setSbMessage} refetchData={refetch} />
         </HomeWrapper>
       </FlexRow>
     )

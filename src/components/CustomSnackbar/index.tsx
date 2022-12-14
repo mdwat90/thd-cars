@@ -19,10 +19,11 @@ interface CustomSnackbarProps {
     vertical: 'top' | 'bottom';
     horizontal: "center" | "left" | "right";
     message: string | null;
+    severity: "error" | "warning" | "info" | "success";
     setOpen: (val: boolean) => void;
 }
 
-export default function CustomSnackbar({open, vertical, horizontal, message, setOpen}: CustomSnackbarProps) {
+export default function CustomSnackbar({open, vertical, horizontal, message, severity, setOpen}: CustomSnackbarProps) {
   const handleClose = () => {
     setOpen(false)
   };
@@ -37,7 +38,7 @@ export default function CustomSnackbar({open, vertical, horizontal, message, set
         message="I love snacks"
         key={vertical + horizontal}
       >
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
       </Snackbar>
