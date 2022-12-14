@@ -9,7 +9,6 @@ import TablePagination from '@mui/material/TablePagination';
 import TableCell from '@mui/material/TableCell';
 import { OverridableComponent } from '@mui/types';
 
-
 interface FlexRowProps {
     margin?: string;
     alignItems?: string;
@@ -40,7 +39,7 @@ export const StyledBox = styled(Box)`
     @media (max-width: 1024px) {
         width: 80vw;
     }
-  `
+`
   
 export const StyledTextField = styled(TextField) `
     &&&.MuiFormControl-root {
@@ -88,7 +87,6 @@ export const StyledTableCell= styled(TableCell) `
         color: white;
     }
 `
-
 interface StyledTablePaginationProps extends OverridableComponent<any> {
     component?: string;
 }
@@ -119,7 +117,6 @@ export const CarInfoWrapper = styled.div`
     }
 `
 
-
 export const HomeWrapper = styled.div`
     width: 75vw;
 
@@ -127,7 +124,6 @@ export const HomeWrapper = styled.div`
         width: 90vw;
     }
 `
-
 interface StyledInfoProps {
     flex?: string;
     justifyContent?: string
