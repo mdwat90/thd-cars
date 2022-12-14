@@ -5,8 +5,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
-import TablePagination, { TablePaginationBaseProps } from '@mui/material/TablePagination';
+import TablePagination from '@mui/material/TablePagination';
 import TableCell from '@mui/material/TableCell';
+import { OverridableComponent } from '@mui/types';
 
 
 interface FlexRowProps {
@@ -23,7 +24,7 @@ export const FlexRow = styled.div<FlexRowProps>`
     flex-flow: row wrap;
   `
   
-export const StyledBox = styled(Box) `
+export const StyledBox = styled(Box)`
     position: absolute;
     top: 50%;
     left: 50%;
@@ -46,9 +47,7 @@ export const StyledTextField = styled(TextField) `
         margin: 0.5rem;
         flex-grow: 1;
     }
-    .MuiInputBase-root {
-      border: 1px solid white;
-    }
+
     label {
       color: white;
     }
@@ -60,15 +59,27 @@ export const StyledTextField = styled(TextField) `
     }
   `
 
-export const StyledPaper = styled(Paper) `
+export const StyledPaperWrapper = styled(Paper) `
     width: 100%;
     overflow: hidden;
     background-color: #5b5f66;
 `
 
+
+export const StyledPaper = styled(Paper)`
+  max-width: 90vw;
+  overflow: hidden;
+  padding: 2rem;
+
+  &&.MuiPaper-root {
+    background-color: #5b5f66;
+    color: white;
+  }
+`
+
 export const StyledTableContainer = styled(TableContainer) `
     background-color: #5b5f66;
-    max-height: 440;
+    max-height: 440px;
 `
 
 export const StyledTableCell= styled(TableCell) `
@@ -78,7 +89,11 @@ export const StyledTableCell= styled(TableCell) `
     }
 `
 
-export const StyledTablePagination = styled(TablePagination)`
+interface StyledTablePaginationProps extends OverridableComponent<any> {
+    component?: string;
+}
+
+export const StyledTablePagination = styled(TablePagination)<StyledTablePaginationProps>`
     &&&.MuiTablePagination-root {
         background-color: #5b5f66;
         color: white;
@@ -104,6 +119,7 @@ export const CarInfoWrapper = styled.div`
     }
 `
 
+
 export const HomeWrapper = styled.div`
     width: 75vw;
 
@@ -112,8 +128,14 @@ export const HomeWrapper = styled.div`
     }
 `
 
-export const StyledInfo = styled.div`
-    display: flex;
+interface StyledInfoProps {
+    flex?: string;
+    justifyContent?: string
+}
+
+export const StyledInfo = styled.div<StyledInfoProps>`
     margin: 0.5rem;
+    flex: ${p => p.flex};
+    justify-content: ${p => p.justifyContent};
 `
 

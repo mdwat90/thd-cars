@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -118,7 +117,7 @@ export default function CustomTable({data}: CustomTableProps) {
                         {columns.map((column) => {
                         const value = row[column.id];
                         return (
-                            <TableCell key={column.id} align={column.align}   sx={{ color: 'white'}}>
+                            <TableCell key={column.id} align={column.align}  sx={{ color: 'white'}}>
                             {value && column.format
                                 ? column.format(value)
                                 : returnCellValue(value)}

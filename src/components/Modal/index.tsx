@@ -1,23 +1,21 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {tacoma, hyundai, mazda3} from './mockData.js';
 import { useForm, Controller, FieldValues } from "react-hook-form";
 import { useMutation } from 'react-query';
 import { Car } from '../../types';
 import { mode, url } from '../../App';
 import { FlexRow, StyledBox, StyledButton, StyledTextField } from '../styled.js';
 
-
-
-
 interface BasicModalProps {
   open: boolean,
   setOpen: (val: boolean) => void,
+  setOpenSb: (val: boolean) => void,
+  setSbMessage: (val: string) => void,
   refetchData: () => void
 }
 
-export default function BasicModal({open, setOpen, refetchData}: BasicModalProps) {
+export default function BasicModal({open, setOpen, setOpenSb, setSbMessage, refetchData}: BasicModalProps) {
   const { handleSubmit, control, reset, formState: { errors } } = useForm();
   const handleClose = () => {
     reset();
@@ -34,18 +32,20 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
     })
   },
   {
-    onSuccess: () =>
-     refetchData()
+    onSuccess: async (data) => {
+      const { message } =  await data.json();
+      refetchData();
+      setSbMessage(message);
+      setOpenSb(true);
+    },
+    onError: (err) => setSbMessage(err as string)
   })
-
-
 
   const onSubmit = (data?: FieldValues, e?:  React.BaseSyntheticEvent ) => {
     if (e) e.preventDefault();
     mutation.mutate(data as Car);
     setOpen(false);
   }
-  
 
   return (
       <Modal

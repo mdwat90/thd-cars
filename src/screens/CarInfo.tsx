@@ -2,31 +2,27 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import {Box, Typography} from '@mui/material';
-import Paper from '@mui/material/Paper';
-import styled from 'styled-components';
+import { Typography} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Car } from '../types';
-import { CarInfoWrapper, FlexRow, CarInfoTitle, StyledInfo } from '../components/styled';
-
-const StyledPaper = styled(Paper)`
-  max-width: 90vw;
-  overflow: hidden;
-  padding: 2rem;
-
-  &&.MuiPaper-root {
-    background-color: #5b5f66;
-    color: white;
-  }
-`
+import { CarInfoWrapper, FlexRow, CarInfoTitle, StyledInfo, StyledPaper } from '../components/styled';
+import { capitalizeString } from '../helpers';
 
 export const CarInfo = () => {
     let { carId } = useParams();
     const { isLoading, error, data } = useQuery<Car>(`/cars/${carId}`);
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading) return <Typography variant='h6'>Loading...</Typography>
   
-    if (error) return <div>An error has occurred...</div>
+    if (error) {
+      return (
+        <div>
+          <Typography variant='h6'>Oops! An error has occurred...</Typography>
+          <Typography variant='subtitle1'><>Error message: {error}</></Typography>
+        </div>
+      )
+    } 
+ 
 
     return (
       <FlexRow justifyContent='center'>
@@ -36,26 +32,24 @@ export const CarInfo = () => {
               <ArrowBackIcon fontSize='small'/> <Typography variant='subtitle1'>Back</Typography>
             </FlexRow>
           </Link>
-          <CarInfoTitle>
-            {data && <Typography variant='h4'>{data.make} {data.model}</Typography>}
-          </CarInfoTitle>
+          <CarInfoWrapper>
             <StyledPaper>
+              <CarInfoTitle>
+                {data && <Typography variant='h4'>{data.make} {data.model}</Typography>}
+              </CarInfoTitle> 
               <FlexRow justifyContent='flex-start'>
                 {data && Object.entries(data).map(([key, value]) => {
-                  const strArr = key.split('');
-                  const firstLetter = strArr[0].toLocaleUpperCase();
-                  strArr.splice(0, 1, firstLetter);
-                  const capitalized = strArr.join('');
                   if(key !== 'date' && key !== 'id') {
                     return (
-                      <StyledInfo key={value}>
-                        <Typography variant='body1'>{capitalized}: {value}</Typography>
+                      <StyledInfo key={value} justifyContent='flex-start'>
+                        <Typography variant='subtitle1' sx={{fontWeight: 'bold'}}>{capitalizeString(key)}: {typeof value === 'string' ? capitalizeString(value): value}</Typography>
                       </StyledInfo>
                     )
                   }
               })}
               </FlexRow>
             </StyledPaper>
+          </CarInfoWrapper>
         </CarInfoWrapper>
       </FlexRow>
     )

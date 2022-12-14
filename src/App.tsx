@@ -34,7 +34,14 @@ interface DefaultQueryArgs {
 
 const defaultQueryFn = async ({ queryKey }: DefaultQueryArgs) => {
   const response = await fetch(`http://${url[mode]}/api/v1${queryKey[0]}`);
-  return response.json();
+  const data = await response.json();
+  if(response.ok) {
+    return data;
+  } else {
+    if(response.status !== 200) {
+      throw data.message;
+    }
+  }
 };
 
 // default query to automatically include url/api/v1

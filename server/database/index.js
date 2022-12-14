@@ -21,7 +21,7 @@ function getAllCarData(req, res) {
       if (snapshot.toJSON()) {
         res.send(snapshot.toJSON());
       } else {
-        res.status(500).send({ error: ERRORS.ALL_CARS });
+        res.status(500).send({ message: ERRORS.ALL_CARS });
       }
     },
     {
@@ -42,9 +42,9 @@ function postCarData(req, res) {
     ...req.body,
   })
     .then(() => {
-      res.send("POST SUCCESS");
+      res.send({ message: "POST SUCCESS" });
     })
-    .catch(() => res.status(500).send({ error: ERRORS.POST_CAR }));
+    .catch(() => res.status(500).send({ message: ERRORS.POST_CAR }));
 }
 
 function getSingleCarData(req, res) {
@@ -64,7 +64,7 @@ function getSingleCarData(req, res) {
       if (item) {
         res.send(item);
       } else {
-        res.status(500).send({ error: ERRORS.SINGLE_CAR });
+        res.status(500).send({ message: ERRORS.SINGLE_CAR });
       }
     },
     {
