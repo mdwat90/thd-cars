@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import Paper from '@mui/material/Paper';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Car } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { StyledPaper, StyledTableCell, StyledTableContainer, StyledTablePagination } from '../styled';
 
 interface Column {
   id: 'make' | 'model' | 'package' | 'color' | 'year' | 'category' | 'mileage' | 'price' | 'id';
@@ -94,19 +93,19 @@ export default function CustomTable({data}: CustomTableProps) {
   const returnCellValue = (value?: string | number | null) => value ? value : '- -'
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+    <StyledPaper>
+      <StyledTableContainer>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
+                <StyledTableCell
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </StyledTableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -115,12 +114,12 @@ export default function CustomTable({data}: CustomTableProps) {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                    <TableRow style={{cursor: 'pointer' }} hover role="checkbox" tabIndex={-1} key={row.id} onClick={() => navigate(`/car-info/${row.id}`)}>
+                    <TableRow sx={{cursor: 'pointer' }} hover role="checkbox" tabIndex={-1} key={row.id} onClick={() => navigate(`/car-info/${row.id}`)}>
                         {columns.map((column) => {
                         const value = row[column.id];
                         return (
-                            <TableCell key={column.id} align={column.align}>
-                            {column.format
+                            <TableCell key={column.id} align={column.align}   sx={{ color: 'white'}}>
+                            {value && column.format
                                 ? column.format(value)
                                 : returnCellValue(value)}
                             </TableCell>
@@ -131,8 +130,8 @@ export default function CustomTable({data}: CustomTableProps) {
               })}
           </TableBody>
         </Table>
-      </TableContainer>
-      <TablePagination
+      </StyledTableContainer>
+      <StyledTablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
         count={sortedRows ? sortedRows.length : 0}
@@ -141,6 +140,6 @@ export default function CustomTable({data}: CustomTableProps) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Paper>
+    </StyledPaper>
   );
 }

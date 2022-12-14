@@ -1,27 +1,14 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
 import {tacoma, hyundai, mazda3} from './mockData.js';
 import { useForm, Controller, FieldValues } from "react-hook-form";
 import { useMutation } from 'react-query';
 import { Car } from '../../types';
 import { mode, url } from '../../App';
+import { FlexRow, StyledBox, StyledButton, StyledTextField } from '../styled.js';
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'white',
-  color: 'black',
-  border: '1px solid #000',
-  borderRadius: '5px',
-  boxShadow: 24,
-  p: 4,
-};
+
 
 
 interface BasicModalProps {
@@ -67,23 +54,22 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <StyledBox>
           <Typography  id="modal-modal-title" variant="h6" component="h2">Car Information</Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
-              <div style={{display: 'flex', margin: '2rem'}}>
+              <FlexRow margin='2rem' justifyContent='space-evenly'>
                 <Controller
                     name="make"
                     control={control}
                     rules={{ required: {value: true , message: "Make is required"} }}
                     render={({ field: { onChange } }) => (
-                      <TextField
-                        style={{margin: '0.5rem'}}
+                      <StyledTextField
+                        id="outlined-basic"
                         label="Make"
                         variant="outlined"
                         size='small'
                         onChange={onChange}
                         error={!!errors.make}
-                        id="outlined-basic"
                         helperText={errors?.make?.message ? `${errors?.make?.message}` : ''}
                       />
                     )}
@@ -93,8 +79,7 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
                     control={control}
                     rules={{ required: {value: true , message: "Model is required"} }}
                     render={({ field: { onChange } }) => (
-                      <TextField
-                        style={{margin: '0.5rem'}}
+                      <StyledTextField
                         label="Model"
                         variant="outlined"
                         size='small'
@@ -110,8 +95,7 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
                     control={control}
                     rules={{ required: {value: true , message: "Mileage is required"} }}
                     render={({ field: { onChange } }) => (
-                      <TextField
-                      style={{margin: '0.5rem'}}
+                      <StyledTextField
                         label="Mileage"
                         variant="outlined"
                         size='small'
@@ -122,16 +106,12 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
                       />
                     )}
                   />
-               
-              </div>
-              <div style={{display: 'flex', margin: '2rem'}}>
-              <Controller
+                   <Controller
                     name="price"
                     control={control}
                     rules={{ required: {value: true , message: "Price is required"} }}
                     render={({ field: { onChange } }) => (
-                      <TextField
-                      style={{margin: '0.5rem'}}
+                      <StyledTextField
                         label="Price"
                         variant="outlined"
                         size='small'
@@ -148,8 +128,7 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
                     control={control}
                     rules={{ required: {value: true , message: "Year is required"} }}
                     render={({ field: { onChange } }) => (
-                      <TextField
-                      style={{margin: '0.5rem'}}
+                      <StyledTextField
                         label="Year"
                         variant="outlined"
                         size='small'
@@ -165,8 +144,7 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
                     control={control}
                     rules={{ required: {value: true , message: "Category is required"} }}
                     render={({ field: { onChange } }) => (
-                      <TextField
-                      style={{margin: '0.5rem'}}
+                      <StyledTextField
                         label="Category"
                         variant="outlined"
                         size='small'
@@ -177,14 +155,12 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
                       />
                     )}
                   />
-              </div>
-              <div style={{display: 'flex', margin: '2rem'}}>
-              <Controller
+
+                <Controller
                     name="package"
                     control={control}
                     render={({ field: { onChange } }) => (
-                      <TextField
-                      style={{margin: '0.5rem'}}
+                      <StyledTextField
                         label="Package"
                         variant="outlined"
                         size='small'
@@ -199,8 +175,7 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
                     name="color"
                     control={control}
                     render={({ field: { onChange } }) => (
-                      <TextField
-                      style={{margin: '0.5rem'}}
+                      <StyledTextField
                         label="Color"
                         variant="outlined"
                         size='small'
@@ -209,16 +184,15 @@ export default function BasicModal({open, setOpen, refetchData}: BasicModalProps
                         helperText={'(Optional)'}
                       />
                     )}
-                  />
-              </div>
-          
+                  />              
+              </FlexRow>
             
-            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-              <Button style={{margin: '0.5rem'}} variant="text" onClick={handleClose}>Cancel</Button>
-              <Button style={{margin: '0.5rem'}}  variant="contained" type='submit'>Submit</Button>
-            </div>
+            <FlexRow justifyContent={'flex-end'}>
+              <StyledButton variant="text" onClick={handleClose}>Cancel</StyledButton>
+              <StyledButton  variant="contained" type='submit'>Submit</StyledButton>
+            </FlexRow>
           </form>
-        </Box>
+        </StyledBox>
       </Modal>
   );
 }

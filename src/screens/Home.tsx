@@ -5,6 +5,7 @@ import { Typography } from '@mui/material';
 import CustomTable from '../components/Table';
 import { CarData } from '../types';
 import BasicModal from '../components/Modal';
+import { FlexRow, HomeWrapper, StyledButton } from '../components/styled';
 
 
 export const Home = () => {
@@ -20,15 +21,15 @@ export const Home = () => {
     if (error) return <div>An error has occurred...</div>
 
     return (
-      <div>
-        <div style={{display: 'flex',  justifyContent: 'space-between', alignItems: 'center'}}>
-          <Typography variant='h2'>All Car Data</Typography>
-          <div>
-            <Button variant="contained" onClick={handleModal}>ADD CAR</Button>
-          </div>
-        </div>
-        <CustomTable data={data ? Object.values(data) : null}/>
-        <BasicModal open={open} setOpen={setOpen} refetchData={refetch} />
-      </div>
+      <FlexRow justifyContent='center'>
+        <HomeWrapper>
+          <FlexRow justifyContent='space-between' alignItems='center'>
+            <Typography variant='h4'>All Car Data</Typography>
+            <StyledButton variant="contained" onClick={handleModal}>ADD CAR</StyledButton>
+          </FlexRow>
+          <CustomTable data={data ? Object.values(data) : null}/>
+          <BasicModal open={open} setOpen={setOpen} refetchData={refetch} />
+        </HomeWrapper>
+      </FlexRow>
     )
   }

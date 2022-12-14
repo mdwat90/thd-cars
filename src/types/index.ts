@@ -7,7 +7,7 @@ export type Car = {
 	category: string,
 	mileage: number,
 	price: number,
-	date: Date,
+	date: string,
 	id?: string,
 }
 

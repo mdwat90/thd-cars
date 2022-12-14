@@ -4,9 +4,21 @@ import { useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import {Box, Typography} from '@mui/material';
 import Paper from '@mui/material/Paper';
+import styled from 'styled-components';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Car } from '../types';
+import { CarInfoWrapper, FlexRow, CarInfoTitle, StyledInfo } from '../components/styled';
 
+const StyledPaper = styled(Paper)`
+  max-width: 90vw;
+  overflow: hidden;
+  padding: 2rem;
+
+  &&.MuiPaper-root {
+    background-color: #5b5f66;
+    color: white;
+  }
+`
 
 export const CarInfo = () => {
     let { carId } = useParams();
@@ -16,21 +28,35 @@ export const CarInfo = () => {
   
     if (error) return <div>An error has occurred...</div>
 
-    if (data) console.log('car data:', data);
-
     return (
-      <div>
-        <Link to={`/`}>
-          <div style={{display: 'flex', alignItems: 'center'}}>
-            <ArrowBackIcon fontSize='small'/> <Typography variant='subtitle1'>Home</Typography>
-          </div>
-        </Link>
-        <div style={{textAlign: 'left'}}>
-          <Typography variant='h2'>Car Info</Typography>
-        </div>
-      <Paper sx={{ width: '100%', overflow: 'hidden'}}>
-        <Typography variant='h6'>Make</Typography>
-      </Paper>
-      </div>
+      <FlexRow justifyContent='center'>
+        <CarInfoWrapper>
+          <Link to={`/`}>
+            <FlexRow  alignItems='center'>
+              <ArrowBackIcon fontSize='small'/> <Typography variant='subtitle1'>Back</Typography>
+            </FlexRow>
+          </Link>
+          <CarInfoTitle>
+            {data && <Typography variant='h4'>{data.make} {data.model}</Typography>}
+          </CarInfoTitle>
+            <StyledPaper>
+              <FlexRow justifyContent='flex-start'>
+                {data && Object.entries(data).map(([key, value]) => {
+                  const strArr = key.split('');
+                  const firstLetter = strArr[0].toLocaleUpperCase();
+                  strArr.splice(0, 1, firstLetter);
+                  const capitalized = strArr.join('');
+                  if(key !== 'date' && key !== 'id') {
+                    return (
+                      <StyledInfo key={value}>
+                        <Typography variant='body1'>{capitalized}: {value}</Typography>
+                      </StyledInfo>
+                    )
+                  }
+              })}
+              </FlexRow>
+            </StyledPaper>
+        </CarInfoWrapper>
+      </FlexRow>
     )
   }
