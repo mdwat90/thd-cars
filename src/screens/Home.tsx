@@ -32,7 +32,7 @@ export const Home = () => {
 
 
     return (
-      <FlexRow justifyContent='center'>
+      <FlexRow justifyContent='center' data-testid='home'>
         <CustomSnackbar open={openSb} vertical='top' horizontal='center' message={sbMessage} severity={severity} setOpen={setOpenSb} />
         <HomeWrapper>
           <FlexRow justifyContent='space-between' alignItems='center'>

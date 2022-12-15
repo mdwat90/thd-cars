@@ -7,7 +7,7 @@ export const mazda3 = {
   category: "sedan",
   mileage: 13000,
   price: 25000,
-  date: new Date(),
+  date: new Date().toString(),
 };
 
 export const tacoma = {
@@ -19,7 +19,7 @@ export const tacoma = {
   category: "trucks",
   mileage: 81000,
   price: 45000,
-  date: new Date(),
+  date: new Date().toString(),
 };
 
 export const hyundai = {
@@ -31,5 +31,11 @@ export const hyundai = {
   category: "suv",
   mileage: 35000,
   price: 37000,
-  date: new Date(),
+  date: new Date().toString()
 };
+
+export const allCarData = {
+  'mazda3': mazda3,
+  'tacoma': tacoma,
+  'hyundai': hyundai
+}
