@@ -74,6 +74,7 @@ export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSb
                         label="Make"
                         variant="outlined"
                         size='small'
+                        inputProps={{'data-testid': 'make-input'}}
                         onChange={onChange}
                         error={!!errors.make}
                         helperText={errors?.make?.message ? `${errors?.make?.message}` : ''}
@@ -89,6 +90,7 @@ export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSb
                         label="Model"
                         variant="outlined"
                         size='small'
+                        inputProps={{'data-testid': 'model-input'}}
                         onChange={onChange}
                         error={!!errors.make}
                         id="outlined-basic"
@@ -105,6 +107,7 @@ export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSb
                         label="Mileage"
                         variant="outlined"
                         size='small'
+                        inputProps={{'data-testid': 'mileage-input'}}
                         onChange={onChange}
                         error={!!errors.year}
                         id="outlined-basic"
@@ -121,6 +124,7 @@ export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSb
                         label="Price"
                         variant="outlined"
                         size='small'
+                        inputProps={{'data-testid': 'price-input'}}
                         onChange={onChange}
                         error={!!errors.year}
                         id="outlined-basic"
@@ -138,6 +142,7 @@ export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSb
                         label="Year"
                         variant="outlined"
                         size='small'
+                        inputProps={{'data-testid': 'year-input'}}
                         onChange={onChange}
                         error={!!errors.year}
                         id="outlined-basic"
@@ -154,6 +159,7 @@ export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSb
                         label="Category"
                         variant="outlined"
                         size='small'
+                        inputProps={{'data-testid': 'category-input'}}
                         onChange={onChange}
                         error={!!errors.year}
                         id="outlined-basic"
@@ -170,6 +176,7 @@ export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSb
                         label="Package"
                         variant="outlined"
                         size='small'
+                        inputProps={{'data-testid': 'package-input'}}
                         onChange={onChange}
                         id="outlined-basic"
                         helperText={'(Optional)'}
@@ -185,6 +192,7 @@ export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSb
                         label="Color"
                         variant="outlined"
                         size='small'
+                        inputProps={{'data-testid': 'color-input'}}
                         onChange={onChange}
                         id="outlined-basic"
                         helperText={'(Optional)'}
@@ -195,7 +203,7 @@ export default function BasicModal({open, setOpen, setOpenSb, setSeverity, setSb
             
             <FlexRow justifyContent={'flex-end'}>
               <StyledButton variant="text" onClick={handleClose}>Cancel</StyledButton>
-              <StyledButton  variant="contained" type='submit'>Submit</StyledButton>
+              <StyledButton data-testid='modal-submit-btn' variant="contained" type='submit'>Submit</StyledButton>
             </FlexRow>
           </form>
         </StyledBox>

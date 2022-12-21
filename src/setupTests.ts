@@ -1,7 +1,15 @@
 import '@testing-library/jest-dom';
-import { afterAll, afterEach, beforeAll } from 'vitest'
+import {
+    afterAll,
+    afterEach,
+    beforeAll,
+  } from 'vitest';
+import { fetch } from 'cross-fetch'
 import { setupServer } from 'msw/node'
 import { handlers } from './mocks/handlers'
+
+global.fetch = fetch;
+
 
 const server = setupServer(...handlers)
 

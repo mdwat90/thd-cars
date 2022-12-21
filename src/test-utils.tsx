@@ -1,32 +1,11 @@
 import { render } from '@testing-library/react'
-import { rest } from 'msw'
 import * as React from 'react'
+import { fetch } from 'cross-fetch'
 import { QueryClient, QueryClientProvider } from "react-query";
 import { DefaultQueryArgs } from './App';
-import { allCarData } from './mocks/mockData';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = `http://localhost:3000/api/v1`
-
-export const handlers = [
-    rest.get(
-        `${root}/cars`,
-        (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json(allCarData)
-            )
-        }
-    ),
-    rest.post(
-        `${root}/cars/post`,
-        (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json(allCarData)
-            )
-        }
-    )
-]
 
 const defaultQueryFn = async ({ queryKey }: DefaultQueryArgs) => {
   const response = await fetch(`${root}${queryKey[0]}`);
@@ -49,25 +28,29 @@ const createTestQueryClient = () => new QueryClient({
     },
 })
 
-export function renderWithClient(ui: React.ReactElement) {
+interface Route {
+    route: string
+}
+
+export function renderWithClient(ui: React.ReactElement, { route }: Route) {
+    window.history.pushState({}, 'Test page', route)
     const testQueryClient = createTestQueryClient()
     const { rerender, ...result } = render(
-        <QueryClientProvider client={testQueryClient}>{ui}</QueryClientProvider>
+        <QueryClientProvider client={testQueryClient}>
+            <BrowserRouter>
+                {ui}
+            </BrowserRouter>
+        </QueryClientProvider>
     )
     return {
         ...result,
-        rerender: (rerenderUi: React.ReactElement) =>
+        rerender: (rerenderUi: React.ReactElement,) =>
             rerender(
-                <QueryClientProvider client={testQueryClient}>{rerenderUi}</QueryClientProvider>
+                <QueryClientProvider client={testQueryClient}>
+                        {rerenderUi}
+                </QueryClientProvider>
             ),
     }
-}
-
-export function createWrapper() {
-    const testQueryClient = createTestQueryClient()
-    return ({ children }: {children: React.ReactNode}) => (
-        <QueryClientProvider client={testQueryClient}>{children}</QueryClientProvider>
-    )
 }
 
 export * from '@testing-library/react'

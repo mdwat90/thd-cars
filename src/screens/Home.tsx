@@ -32,12 +32,12 @@ export const Home = () => {
 
 
     return (
-      <FlexRow justifyContent='center' data-testid='home'>
+      <FlexRow justifyContent='center'>
         <CustomSnackbar open={openSb} vertical='top' horizontal='center' message={sbMessage} severity={severity} setOpen={setOpenSb} />
         <HomeWrapper>
           <FlexRow justifyContent='space-between' alignItems='center'>
-            <Typography variant='h4'>All Car Data</Typography>
-            <StyledButton variant="contained" onClick={handleModal}>ADD CAR</StyledButton>
+            <Typography data-testid='heading' variant='h4'>All Car Data</Typography>
+            <StyledButton data-testid='add-car-btn' variant="contained" onClick={handleModal}>ADD CAR</StyledButton>
           </FlexRow>
           <CustomTable data={data ? Object.values(data) : null}/>
           <BasicModal open={open} setOpen={setOpen} setOpenSb={setOpenSb} setSeverity={setSeverity} setSbMessage={setSbMessage} refetchData={refetch} />

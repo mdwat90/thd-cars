@@ -27,7 +27,7 @@ export const CarInfo = () => {
     return (
       <FlexRow justifyContent='center'>
         <CarInfoWrapper>
-          <Link to={`/`}>
+          <Link to={`/`} data-testid='back-link'>
             <FlexRow  alignItems='center'>
               <ArrowBackIcon fontSize='small'/> <Typography variant='subtitle1'>Back</Typography>
             </FlexRow>

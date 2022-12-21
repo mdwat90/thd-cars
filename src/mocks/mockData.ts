@@ -1,4 +1,5 @@
 export const mazda3 = {
+  id:3,
   make: "Mazda",
   model: "Mazda3",
   package: "touring",
@@ -11,6 +12,7 @@ export const mazda3 = {
 };
 
 export const tacoma = {
+  id: 1,
   make: "Toyota",
   model: "Tacoma",
   package: "TRD Off-road",
@@ -23,6 +25,7 @@ export const tacoma = {
 };
 
 export const hyundai = {
+  id: 2,
   make: "Hyundai",
   model: "Tuscon",
   package: null,
